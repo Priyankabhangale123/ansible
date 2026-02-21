@@ -1,0 +1,23 @@
+---
+- name: install start,enable httpd
+  hpsts: localhosot
+  become: yes    #it is assign sudo privilahes
+  tasks:
+  - name: install httpd
+    ansible.builtin.dnf:      #module
+#install httpd
+  - name: httpd
+    state: present
+# start and enable httpd
+  - name: start and enable httpd
+    ansible.builtin.systemd-service:
+      name: httpd
+      state: start
+      enable: trune
+# deploy inside.html
+  - name: deploy index.html file
+    aansible.builtin.copy:
+    dest: /var/www/index.html
+    content:
+      <h1> wlcome to my httpd webside </h1>
+      

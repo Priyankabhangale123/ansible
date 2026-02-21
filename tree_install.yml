@@ -1,0 +1,9 @@
+---
+- name: install tree project
+  hosts: localhoat
+  tasks: 
+  - name: install tree
+    ansible.builtin.dnf:             //use ansible dnf module
+      name: tree                    //package name
+      state: present               //to instakk any software 
+      

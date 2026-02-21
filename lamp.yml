@@ -1,0 +1,38 @@
+--- 
+- name: install lamp in amazon linux
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: install httpd package
+    ansible.builtin.dnf:
+      name: mariadb105-server
+      state: present
+  - name: install php package 
+    ansible.builtin.dnf:
+      name:
+        - php
+        - php-fpm
+      start: present
+  - name: start and enable httpd
+    ansible.builtin.systemd_service:
+      name: httpd
+      state: started
+      enable: true
+  - name: start and enable mariadb105
+    ansible.builtin.systemd_service:
+       name: mariadb
+       state: started
+       enable: true
+  - name: start and enable php
+    ansible.builtin.systemd_service:
+      name: php-fpm
+      state: started
+      enable: true
+  - name: deploy php
+    ansible.builtin.copy:
+      dest: /vae/www/html/index.php
+      content:
+         <?php 
+          phpinfo();
+          ?>
+  
